@@ -9,7 +9,8 @@
     "bson": "~0.2.3",
     "uid2": "0.0.3",
     "callback-wrapper": "0.0.0",
-    "email-validation": "0.0.2"
+    "email-validation": "0.0.2",
+    "bignum": "~0.6.2"
   },
   "youmeb": {
     "dependencies": {

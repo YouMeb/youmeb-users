@@ -3,8 +3,7 @@
 var path = require('path');
 var restAuth = require('./restauth');
 var schema = require('./schema');
-
-module.exports = function ($youmeb, $errors, $routes, $redis, $redisClient) {
+var users = module.exports = function ($youmeb, $errors, $routes, $redis, $redisClient) {
 
   if (!$redis) {
     return done(new Error('You need to install the redis youmeb package.'));
@@ -18,7 +17,6 @@ module.exports = function ($youmeb, $errors, $routes, $redis, $redisClient) {
   });
 
   // attributes
-  this.schema = schema;
   this.passwordHasher = function (pass, done) {
     done(null, pass);
   };
@@ -33,11 +31,11 @@ module.exports = function ($youmeb, $errors, $routes, $redis, $redisClient) {
 
 };
 
-exports.schema = schema;
+users.schema = schema;
 
-exports.createTable = function (migration, DataTypes, done) {
+users.createTable = function (migration, DataTypes, done) {
   migration
-    .createTable('Users', schema, {
+    .createTable('Users', schema(DataTypes), {
       charset: 'utf8',
       timestamp: true
     })
@@ -49,9 +47,11 @@ exports.createTable = function (migration, DataTypes, done) {
     .error(done);
 };
 
-exports.dropTable = function (migration, DataTypes, done) {
+users.dropTable = function (migration, DataTypes, done) {
   migration
     .dropTable('Users')
     .success(done)
     .error(done);
 };
+
+users.getObjectId = require('./objectId');

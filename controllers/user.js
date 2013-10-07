@@ -67,7 +67,7 @@ module.exports = function ($youmeb, $errors, $restAuth, $users, $sequelize) {
               })
               .error(next)
               .success(function (user) {
-                var data = user.getDataValue();
+                var data = utils.base.extend(user.getDataValues);
                 delete data.password;
                 res.jsonp({
                   success: true,
@@ -94,7 +94,7 @@ module.exports = function ($youmeb, $errors, $restAuth, $users, $sequelize) {
           })
           .error(next)
           .success(function (user) {
-            var data = user.getDataValue();
+            var data = utils.base.extend(user.getDataValues);
             delete data.password;
             res.jsonp({
               success: true,

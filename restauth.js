@@ -102,5 +102,7 @@ module.exports = function (redisClient, done) {
     function id2key(prefix, id) {
       return prefix + id;
     }
+
+    done();
   };
 };

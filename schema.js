@@ -1,11 +1,21 @@
 'use strict';
 
-module.exports = function ($sequelize) {
+var bignum = require('bignum');
+
+module.exports = function (DataTypes) {
   return {
     id: {
       type: DataTypes.DECIMAL(29, 0),
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      get: function () {
+        if (this.__bignumId === this.dataValues.id) {
+          return this.__bignumIdCache;
+        }
+        this.__bignumId = this.dataValues.id;
+        this.__bignumIdCache = bignum(this.dataValues.id).toString(16);
+        return this.__bignumIdCache;
+      }
     },
     login: {
       type: DataTypes.STRING,
