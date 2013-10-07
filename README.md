@@ -56,7 +56,9 @@ app.js
     {
       "packages": {
         "users": {
-          "redis-database": 2
+          "redis-database": 2,
+          "token-expire": 604800,
+          "nonce-expire": 300
         }
       }  
     }
@@ -91,7 +93,7 @@ Edit migration file
     var users = require('youmeb-users');
 
     module.exports = {
-      up: function (sequelize, DataTypes, done) {
+      up: function (migration, DataTypes, done) {
         var schema = users.schema;
         schema.test = DataTypes.STRING;
         users.createTable(sequelize, DataTypes, done);

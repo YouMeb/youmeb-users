@@ -1,0 +1,21 @@
+{
+  "name": "youmeb-users",
+  "version": "0.0.0",
+  "keywords": [
+    "youmeb-package"
+  ],
+  "main": "index.js",
+  "dependencies": {
+    "bson": "~0.2.3",
+    "uid2": "0.0.3",
+    "callback-wrapper": "0.0.0",
+    "email-validation": "0.0.2"
+  },
+  "youmeb": {
+    "dependencies": {
+      "redis": "*",
+      "rest-auth": "*",
+      "sequelize": "*"
+    }
+  }
+}
