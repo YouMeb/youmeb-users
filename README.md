@@ -8,6 +8,8 @@ youmeb-users
 
 ## Installaction
 
+    $ npm install --save youmeb-redis youmeb-rest-auth
+
 app.js
 
     module.exports = function () {
@@ -15,7 +17,7 @@ app.js
       this.invoke(function ($users) {
 
         $users.setPasswordHasher(function (pass, done) {
-          done(sha1(pass));
+          done(null, sha1(pass));
         });
 
       });
