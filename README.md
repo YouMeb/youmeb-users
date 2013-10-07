@@ -3,6 +3,9 @@ youmeb-users
 
 ## Dependencies
 
+* youmeb-redis
+* youmeb-rest-auth
+
 ## Installaction
 
 app.js
