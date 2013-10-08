@@ -7,6 +7,14 @@ youmeb-users
 * youmeb-rest-auth
 * youmeb-sequelize
 
+## REST API
+
+### Signup
+
+* Method: post
+* Path: /api/user/signup
+* Parameters: login, password, email, display
+
 ## Installaction
 
     $ npm install --save youmeb-redis youmeb-rest-auth youmeb-sequelize youmeb-users
