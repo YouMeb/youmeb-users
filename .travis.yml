@@ -4,5 +4,5 @@ node_js:
 before_script:
   - mysql -e 'create database youmeb_users_test;'
 services:
-  - redis
+  - redis-server
   - mysql
