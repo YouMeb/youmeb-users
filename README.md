@@ -7,14 +7,6 @@ youmeb-users
 * youmeb-rest-auth
 * youmeb-sequelize
 
-## REST API
-
-### Signup
-
-* Method: post
-* Path: /api/user/signup
-* Parameters: login, password, email, display
-
 ## Installaction
 
     $ npm install --save youmeb-redis youmeb-rest-auth youmeb-sequelize youmeb-users
@@ -121,3 +113,23 @@ Edit migration file
       }
       // ...
     };
+
+## Frontend Example
+
+    $.get('/api/rest-auth/nonce', function (data) {
+
+      if (!data.success) {
+        return alert(data.error.code);
+      }
+
+      var password = sha1('123');
+      var hash = sha1([password, data.data.nonce, 'cnonce'].sort().join(''));
+
+      $.post('/api/rest-auth/login', function (data) {
+        if (!data.success) {
+          return alert(data.error.code);
+        }
+        alert('Hello ' + data.data.user.display);
+      });
+
+    });
