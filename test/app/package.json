@@ -10,7 +10,7 @@
     "youmeb-api-angularjs": "*",
     "youmeb-redis": "0.0.3",
     "youmeb-rest-auth": "0.0.2",
-    "youmeb-sequelize": "0.0.5",
+    "youmeb-sequelize": "0.0.7",
     "mysql": "~2.0.0-alpha9"
   },
   "license": "MIT"

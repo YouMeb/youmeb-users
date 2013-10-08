@@ -2,8 +2,7 @@
   "packages": {
     "sequelize": {
       "db": "youmeb_users_test",
-      "username": "root",
-      "password": "123123"
+      "username": "travis"
     }
   }
 }
