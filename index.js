@@ -39,11 +39,7 @@ users.createTable = function (migration, DataTypes, done) {
       charset: 'utf8',
       timestamp: true
     })
-    .success(function () {
-      migration.addIndex('Users', ['login']);
-      migration.addIndex('Users', ['email']);
-      done();
-    })
+    .success(done)
     .error(done);
 };
 
