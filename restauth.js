@@ -50,6 +50,7 @@ module.exports = function (redisClient, done) {
     function getPassword(login, returnPassword, done) {
       User.find({
         where: ['`login` = ?', login],
+        attributes: ['password'],
         limit: 1
       })
         .success(function (user) {
