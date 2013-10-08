@@ -37,10 +37,10 @@ module.exports = function (redisClient, done) {
       }));
     }
 
-    function saveToken(done) {
+    function saveToken(login, returnId, done) {
       generateTokenId(callbackWrapper(done, function (err, id) {
         var key = getTokenKey(id);
-        redisClient.set(key, nonce);
+        redisClient.set(key, login);
         redisClient.expire(key, tokenExpire);
         returnId(id);
         done();
