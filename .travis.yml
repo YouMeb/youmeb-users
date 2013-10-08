@@ -6,3 +6,4 @@ before_script:
 services:
   - redis-server
   - mysql
+env: NODE_ENV=travis

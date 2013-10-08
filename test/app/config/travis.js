@@ -1,9 +1,0 @@
-{
-  "packages": {
-    "sequelize": {
-      "db": "youmeb_users_test",
-      "username": "travis",
-      "password": ""
-    }
-  }
-}

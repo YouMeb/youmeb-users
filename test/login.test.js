@@ -40,7 +40,6 @@ describe('post /api/rest-auth/login', function () {
       if (err) {
         throw err;
       }
-      console.log(data);
       expect(data.success).to.be.true;
       expect(data.data.loginSuccess).to.be.true;
       expect(data.data.token).to.be.a('string');

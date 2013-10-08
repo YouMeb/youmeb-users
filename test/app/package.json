@@ -6,7 +6,7 @@
     "youmeb-application"
   ],
   "dependencies": {
-    "youmeb": "*",
+    "youmeb": "git://github.com/YouMeb/youmeb.js.git",
     "youmeb-api-angularjs": "*",
     "youmeb-redis": "0.0.3",
     "youmeb-rest-auth": "0.0.2",
