@@ -1,0 +1,21 @@
+{
+  "port": 3000,
+  "host": "localhost",
+  "controllers": "controllers",
+  "error": {
+    "format": "{level:1}{module:3}{code:2}",
+    "file": "errors"
+  },
+  "logger": {
+    "level": "debug",
+    "dir": "log",
+    "filename": "%s.log"
+  },
+  "packages": {
+    "sequelize": {
+      "db": "youmeb_users_test",
+      "username": "root",
+      "password": "123123"
+    }
+  }
+}

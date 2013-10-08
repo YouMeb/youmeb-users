@@ -4,6 +4,9 @@
   "keywords": [
     "youmeb-package"
   ],
+  "scripts": {
+    "test": "./test.sh"
+  },
   "main": "index.js",
   "dependencies": {
     "bson": "~0.2.3",
@@ -18,5 +21,11 @@
       "rest-auth": "*",
       "sequelize": "*"
     }
+  },
+  "devDependencies": {
+    "chai": "~1.8.0",
+    "mocha": "~1.13.0",
+    "request": "~2.27.0",
+    "youmeb-cli": "0.0.3"
   }
 }

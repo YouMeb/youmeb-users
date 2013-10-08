@@ -1,0 +1,17 @@
+{
+  "name": "app",
+  "version": "0.0.0",
+  "main": "app.js",
+  "keywords": [
+    "youmeb-application"
+  ],
+  "dependencies": {
+    "youmeb": "*",
+    "youmeb-api-angularjs": "*",
+    "youmeb-redis": "0.0.3",
+    "youmeb-rest-auth": "0.0.2",
+    "youmeb-sequelize": "0.0.5",
+    "mysql": "~2.0.0-alpha9"
+  },
+  "license": "MIT"
+}

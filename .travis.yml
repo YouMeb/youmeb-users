@@ -1,0 +1,8 @@
+language: node_js
+node_js:
+  - "0.10"
+before_script:
+  - mysql -e 'create database youmeb_users_test;'
+services:
+  - redis
+  - mysql

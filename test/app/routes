@@ -1,0 +1,6 @@
+api.rest-auth.login               post    /api/rest-auth/login             
+api.rest-auth.nonce               get     /api/rest-auth/nonce             
+api.user.me                       all     /api/user/me                     
+api.user.signup                   post    /api/user/signup                 
+youmeb-api-angularjs.jsfile       all     /youmeb/youmeb-api-angular.js    
+youmeb-api-angularjs.minjsfile    all     /youmeb/youmeb-api-angular.min.js
