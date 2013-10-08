@@ -2,7 +2,7 @@
 
 var baseUtils = module.exports = {};
 
-baseUtils.extend = function (obj) {
+baseUtils.clone = function (obj) {
   var i;
   var newObj = {};
   for (i in obj) {

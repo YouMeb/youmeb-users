@@ -45,7 +45,7 @@ module.exports = function ($youmeb, $errors, $restAuth, $users, $sequelize) {
         });
       }
       
-      $restAuth.passwordHasher(pass, callbackWrapper(next, function (err, hash) {
+      $users.passwordHasher(pass, callbackWrapper(next, function (err, hash) {
         User
           .count({
             where: ['`login` = ? OR `email` = ?', login, email]
@@ -67,7 +67,7 @@ module.exports = function ($youmeb, $errors, $restAuth, $users, $sequelize) {
               })
               .error(next)
               .success(function (user) {
-                var data = utils.base.extend(user.getDataValues);
+                var data = utils.base.clone(user.dataValues);
                 delete data.password;
                 res.jsonp({
                   success: true,
@@ -94,7 +94,7 @@ module.exports = function ($youmeb, $errors, $restAuth, $users, $sequelize) {
           })
           .error(next)
           .success(function (user) {
-            var data = utils.base.extend(user.getDataValues);
+            var data = utils.base.clone(user.dataValues);
             delete data.password;
             res.jsonp({
               success: true,

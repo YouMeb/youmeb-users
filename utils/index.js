@@ -9,5 +9,5 @@ files.forEach(function (file) {
   if (file === 'index.js' || !/\.js/.test(file)) {
     return;
   }
-  utils[path.basename(file)] = require(path.join(__dirname, file));
+  utils[path.basename(file, '.js')] = require(path.join(__dirname, file));
 });

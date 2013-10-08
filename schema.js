@@ -50,6 +50,12 @@ module.exports = function (DataTypes) {
 
         return data;
       }
+    },
+    createdAt: {
+      type: DataTypes.DATE
+    },
+    updatedAt: {
+      type: DataTypes.DATE
     }
   };
 };
