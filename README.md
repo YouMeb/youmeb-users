@@ -1,6 +1,8 @@
 youmeb-users
 ============
 
+[![Build Status](https://travis-ci.org/YouMeb/youmeb-users.png?branch=master)](https://travis-ci.org/YouMeb/youmeb-users)
+
 ## Dependencies
 
 * youmeb-redis
