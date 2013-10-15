@@ -196,3 +196,18 @@ app.js
     
 And don't forget to update your MySQL database(table).
 
+##If you want to add a new user on user table, you can throw API :
+
+(Angular like:)
+
+    $http.post('http://127.0.0.1:3000/api/user/signup',{
+          pass: 'kerker',
+          login: 'test',
+          email:'admin@test.com',
+          display:'test'
+        }).success(function(data){
+          console.log(data);
+        })
+
+
+
