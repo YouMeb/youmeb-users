@@ -9,43 +9,67 @@ youmeb-users
 * youmeb-rest-auth
 * youmeb-sequelize
 
-## Installaction
+You must install :
 
-    $ npm install --save youmeb-redis youmeb-rest-auth youmeb-sequelize youmeb-users
+* Redis : How to install this? see that `http://redis.io/download` or  [Click me](http://redis.io/download)
+* mysql
 
-### Support bigint (MySQL)
 
-app.js
+## STEP1 - Installaction
 
-    (function () {
-      var oldCreateConnection = mysql.createConnection;
-      mysql.createConnection = function (config) {
-        config.supportBigNumbers = true;
-        config.bigNumberStrings = true;
-        return oldCreateConnection.apply(this, arguments);
-      };
-    })();
+    $ npm install --save youmeb-redis youmeb-rest-auth youmeb-sequelize youmeb-users mysql
+    
+## STEP2 - Configuration
 
-### Password hashing
+### Set on `/config/default.json` (You must have a YoumebJS project)
 
-app.js
+    {
+      "packages": {
+        "sequelize": {      // youmeb-sequelize setting
+            "db": "your mysqlDB name",
+            "username": "your User name",
+            "password": "your password",
+            "options": {
+                "host": "your mysql url. ex:127.0.0.1"
+            }
+        },   
+        "users": {         // youmeb-users setting
+          "redis-database": 2,
+          "token-expire": 604800,
+          "nonce-expire": 300
+        }
+      }  
+    }
 
-    module.exports = function () {
+## STEP3 - Migration
+"Package" is our YoumebJS main architecture . On this youmeb-users project , we build a `user login` package which will help you to generate new table(users) and set all of `users's table` parameters in your MySQL database. 
 
-      this.invoke(function ($users) {
+First, you must build a new migration setting file, on cli:
 
-        $users.setPasswordHasher(function (pass, done) {
-          done(null, sha1(pass));
-        });
+    $ youmeb sequelize:generate:migration
 
-      });
+Second, see `/migrations/` file , you can see a new `XXXXXXXX-users.js` file, and edit this migration file:
 
+    var users = require('youmeb-users');
+
+    module.exports = {
+      up: users.createTable,
+      down: users.dropTable
     };
 
-### Define User model
+Third, come back to your cli:
+
+    $ youmeb sequelize:migrate
+    
+It will help you to build a new users table automatically.
+
+### STEP4 - Define User model
+
+First, in your cli:
 
     $ youmeb sequelize:generate:model
 
+Generate a 'user' model,and edit it at `/models/user.js`:
 
     var users = require('youmeb-users');
 
@@ -66,32 +90,83 @@ app.js
       return User;
     };
 
-## Configuration
+### STEP5 - Setting app.js 
 
-    {
-      "packages": {
-        "users": {
-          "redis-database": 2,
-          "token-expire": 604800,
-          "nonce-expire": 300
-        }
-      }  
-    }
+First, setting MySQL bigint:
 
-## Migration
+app.js:
 
-    $ youmeb sequelize:generate:migration
+    var mysql = require('mysql');  //Don't forget to npm install mysql!
 
-Edit migration file
+    (function () {
+      var oldCreateConnection = mysql.createConnection;
+      mysql.createConnection = function (config) {
+        config.supportBigNumbers = true;
+        config.bigNumberStrings = true;
+        return oldCreateConnection.apply(this, arguments);
+      };
+    })();
 
-    var users = require('youmeb-users');
+Second, Setting Password hashing:
 
-    module.exports = {
-      up: users.createTable,
-      down: users.dropTable
+app.js
+
+    module.exports = function () {
+
+      this.invoke(function ($users) {
+        $users.setPasswordHasher(function (pass, done) {
+          done(null, sha1(pass));  // sha1 is your crypto algo function
+        });
+      });
+
     };
+    
+`Hint! Before you using this code , you must define a crypto algo function !` (Here is sha1 for a example)
 
-## Customize User Model
+
+
+
+
+
+## Frontend Example
+
+(jQuery like:)
+
+    $.get('/api/rest-auth/nonce', function (data) {
+      if (!data.success) {
+        return alert(data.error.code);
+      }
+      
+      var password = sha1('123'); // you must define crypto algo function
+      var hash = sha1([password, data.data.nonce, 'cnonce'].sort().join(''));
+      
+      $.post('/api/rest-auth/login', function (data) {
+        if (!data.success) {
+          return alert(data.error.code);
+        }
+        alert('Hello ' + data.data.user.display);
+      });
+    
+    });
+    
+(Angular like:)
+
+    $http.get('/api/rest-auth/nonce').success(function(data){
+        
+        var password = sha1('123'); // you must define crypto algo function
+        var hash = sha1([password, data.data.nonce, 'cnonce'].sort().join(''));
+        
+        $http.post('/api/rest-auth/login',{
+            login:'123',cnonce:'cnonce',hash:hash,key:data.data.key    
+        }).success(function (data) {
+            console.log(data)
+        })
+      });
+      
+    })
+    
+
+## If you want to Customize your User Model,try that:
 
 ### Model
 
@@ -115,23 +190,6 @@ Edit migration file
       }
       // ...
     };
+    
+And don't forget to update your MySQL database(table).
 
-## Frontend Example
-
-    $.get('/api/rest-auth/nonce', function (data) {
-
-      if (!data.success) {
-        return alert(data.error.code);
-      }
-
-      var password = sha1('123');
-      var hash = sha1([password, data.data.nonce, 'cnonce'].sort().join(''));
-
-      $.post('/api/rest-auth/login', function (data) {
-        if (!data.success) {
-          return alert(data.error.code);
-        }
-        alert('Hello ' + data.data.user.display);
-      });
-
-    });
