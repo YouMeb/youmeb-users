@@ -62,7 +62,9 @@ Third, come back to your cli:
 
     $ youmeb sequelize:migrate
     
-It will help you to build a new users table automatically.
+It will help you to build a new users table automatically. 
+
+![](https://s3-us-west-2.amazonaws.com/iamblueblog/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7+2013-10-15+%E4%B8%8B%E5%8D%884.24.48.png)
 
 ### STEP4 - Define User model
 
