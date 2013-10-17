@@ -17,15 +17,16 @@ You must install :
 
 
 ## STEP1 - Installaction
-
+```bash
     $ npm install --save youmeb-redis youmeb-rest-auth youmeb-sequelize youmeb-users mysql
-    
+```    
 ## STEP2 - Configuration
 
 ### Set on `/config/default.json` (You must have a YoumebJS project)
-
+```javascript
     {
       "packages": {
+        //....
         "sequelize": {      // youmeb-sequelize setting
             "db": "your mysqlDB name",
             "username": "your User name",
@@ -41,27 +42,27 @@ You must install :
         }
       }  
     }
-
+```
 ## STEP3 - Migration
 "Package" is our YoumebJS main architecture . On this youmeb-users project , we build a `user login` package which will help you to generate new table(users) and set all of `users's table` parameters in your MySQL database. 
 
 First, you must build a new migration setting file, on cli:
-
+```bash
     $ youmeb sequelize:generate:migration
-
+```
 Second, see `/migrations/` file , you can see a new `XXXXXXXX-users.js` file, and edit this migration file:
-
+```javascript 
     var users = require('youmeb-users');
 
     module.exports = {
       up: users.createTable,
       down: users.dropTable
     };
-
+```
 Third, come back to your cli:
-
+```bash
     $ youmeb sequelize:migrate
-    
+```    
 It will help you to build a new users table automatically. 
 
 ![](https://s3-us-west-2.amazonaws.com/iamblueblog/%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7+2013-10-15+%E4%B8%8B%E5%8D%884.24.48.png)
@@ -69,11 +70,11 @@ It will help you to build a new users table automatically.
 ### STEP4 - Define User model
 
 First, in your cli:
-
+```bash
     $ youmeb sequelize:generate:model
-
+```
 Generate a 'user' model,and edit it at `/models/user.js`:
-
+```bash
     var users = require('youmeb-users');
 
     module.exports = function(sequelize, DataTypes) {
@@ -92,13 +93,13 @@ Generate a 'user' model,and edit it at `/models/user.js`:
 
       return User;
     };
-
+```
 ### STEP5 - Setting app.js 
 
 First, setting MySQL bigint:
 
 app.js:
-
+```javascript
     var mysql = require('mysql');  //Don't forget to npm install mysql!
 
     (function () {
@@ -109,11 +110,11 @@ app.js:
         return oldCreateConnection.apply(this, arguments);
       };
     })();
-
+```
 Second, Setting Password hashing:
 
 app.js
-
+```javascript
     module.exports = function () {
 
       this.invoke(function ($users) {
@@ -123,7 +124,7 @@ app.js
       });
 
     };
-    
+```
 `Hint! Before you using this code , you must define a crypto algo function !` (Here is sha1 for a example)
 
 
@@ -134,7 +135,7 @@ app.js
 ## Frontend Example
 
 (jQuery like:)
-
+```javascript
     $.get('/api/rest-auth/nonce', function (data) {
       if (!data.success) {
         return alert(data.error.code);
@@ -151,9 +152,9 @@ app.js
       });
     
     });
-    
+```    
 (Angular like:)
-
+```javascript
     $http.get('/api/rest-auth/nonce').success(function(data){
         
         var password = sha1('123'); // you must define crypto algo function
@@ -167,12 +168,12 @@ app.js
       });
       
     })
-    
+```
 
 ## If you want to Customize your User Model,try that:
 
 ### Model
-
+```javascript
     var users = require('youmeb-users');
 
     module.exports = function (sequelize, DataTypes) {
@@ -180,9 +181,9 @@ app.js
       schema.test = DataTypes.STRING;
       return sequelize.define('User', schema);
     };
-
+```
 ### Migration
-
+```javascript
     var users = require('youmeb-users');
 
     module.exports = {
@@ -193,13 +194,13 @@ app.js
       }
       // ...
     };
-    
+```    
 And don't forget to update your MySQL database(table).
 
 ##If you want to add a new user on user table, you can throw API :
 
 (Angular like:)
-
+```javascript
     $http.post('http://127.0.0.1:3000/api/user/signup',{
           pass: 'kerker',
           login: 'test',
@@ -208,6 +209,6 @@ And don't forget to update your MySQL database(table).
         }).success(function(data){
           console.log(data);
         })
-
+```
 
 
