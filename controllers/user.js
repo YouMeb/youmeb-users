@@ -3,6 +3,7 @@
 var callbackWrapper = require('callback-wrapper');
 var emailValid = require('email-validation').valid;
 var utils = require('../utils');
+var uuid = require('node-uuid');
 
 module.exports = function ($youmeb, $errors, $restAuth, $users, $sequelize) {
   var User = $sequelize.model('User');
@@ -63,7 +64,8 @@ module.exports = function ($youmeb, $errors, $restAuth, $users, $sequelize) {
                 login: login,
                 password: hash,
                 display: display,
-                email: email
+                email: email,
+                uuid: uuid.v4()
               })
               .error(next)
               .success(function (user) {

@@ -3,6 +3,7 @@
 var path = require('path');
 var youmeb = require('./app/node_modules/youmeb');
 var crypto = require('crypto');
+var uuid = require('node-uuid');
 var User;
 
 before(function (done) {
@@ -21,7 +22,8 @@ before(function (done) {
         login: 'test',
         password: pass,
         email: 'test@test.me',
-        display: 'test'
+        display: 'test',
+        uuid: uuid.v4()
       })
       .success(function () {
         done();
