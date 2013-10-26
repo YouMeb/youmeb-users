@@ -128,10 +128,6 @@ app.js
 *Hint! Before you using this code , you must define a crypto algo function !* (Here is sha1 for a example)
 
 
-
-
-
-
 ## Frontend Example
 
 (jQuery like:)
@@ -155,19 +151,19 @@ app.js
 
 (Angular like:)
 
-    $http.get('/api/rest-auth/nonce').success(function(data){
+    $http.get('/api/rest-auth/nonce').success(function (data) {
         
         var password = sha1('123'); // you must define crypto algo function
         var hash = sha1([password, data.data.nonce, 'cnonce'].sort().join(''));
         
-        $http.post('/api/rest-auth/login',{
+        $http.post('/api/rest-auth/login', {
             login:'123',cnonce:'cnonce',hash:hash,key:data.data.key    
         }).success(function (data) {
-            console.log(data)
-        })
+            console.log(data);
+        });
       });
       
-    })
+    });
 
 
 ## If you want to Customize your User Model,try that:
@@ -201,11 +197,11 @@ And don't forget to update your MySQL database(table).
 
 (Angular like:)
 
-    $http.post('http://127.0.0.1:3000/api/user/signup',{
-          password: 'kerker',
-          login: 'test',
-          email:'admin@test.com',
-          display:'test'
-        }).success(function(data){
-          console.log(data);
-        })
+    $http.post('http://127.0.0.1:3000/api/user/signup', {
+      password: 'kerker',
+      login: 'test',
+      email:'admin@test.com',
+      display:'test'
+    }).success(function(data){
+      console.log(data);
+    });
