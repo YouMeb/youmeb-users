@@ -67,6 +67,7 @@ module.exports = function ($youmeb, $errors, $restAuth, $users, $sequelize) {
               })
               .error(next)
               .success(function (user) {
+                $users.emit('signup-success', user);
                 var data = utils.base.clone(user.dataValues);
                 delete data.password;
                 res.jsonp({
