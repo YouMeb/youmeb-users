@@ -15,6 +15,9 @@ You must install :
 * mysql
 * YoumebJS project !!! How to install? see that: [Click me](https://github.com/YouMeb/youmeb.js/wiki/%E9%96%8B%E5%A7%8B%E4%BD%BF%E7%94%A8-YouMeb-!) 
 
+## Events
+
+* signup-success
 
 ## STEP1 - Installaction
 
