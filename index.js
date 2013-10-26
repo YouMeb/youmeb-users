@@ -49,5 +49,3 @@ users.dropTable = function (migration, DataTypes, done) {
     .success(done)
     .error(done);
 };
-
-users.getObjectId = require('./objectId');

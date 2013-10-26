@@ -84,39 +84,12 @@ Generate a 'user' model,and edit it at `/models/user.js`:
 
     module.exports = function(sequelize, DataTypes) {
       var schema = users.schema(DataTypes);
-      var User = sequelize.define('User', schema);
-
-      (function () {
-        var save = User.DAO.prototype.__proto__.save;
-        User.DAO.prototype.save = function () {
-          if (!this.id) {
-            this.id = users.getObjectId();
-          }
-          return save.apply(this, arguments);
-        };
-      })();
-
-      return User;
+      return sequelize.define('User', schema);
     };
 
 ### STEP5 - Setting app.js 
 
-First, setting MySQL bigint:
-
-app.js:
-
-    var mysql = require('mysql');  //Don't forget to npm install mysql!
-
-    (function () {
-      var oldCreateConnection = mysql.createConnection;
-      mysql.createConnection = function (config) {
-        config.supportBigNumbers = true;
-        config.bigNumberStrings = true;
-        return oldCreateConnection.apply(this, arguments);
-      };
-    })();
-
-Second, Setting Password hashing:
+Setting Password hashing:
 
 app.js
 

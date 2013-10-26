@@ -1,21 +1,18 @@
 'use strict';
 
-var bignum = require('bignum');
+var uuid = require('node-uuid');
 
 module.exports = function (DataTypes) {
   return {
     id: {
-      type: DataTypes.DECIMAL(29, 0),
-      allowNull: false,
+      type: DataTypes.INTEGER,
       primaryKey: true,
-      get: function () {
-        if (this.__bignumId === this.dataValues.id) {
-          return this.__bignumIdCache;
-        }
-        this.__bignumId = this.dataValues.id;
-        this.__bignumIdCache = bignum(this.dataValues.id).toString(16);
-        return this.__bignumIdCache;
-      }
+      autoIncrement: true
+    },
+    uuid: {
+      type: DataTypes.STRING(36),
+      allowNull: false,
+      unique: true,
     },
     login: {
       type: DataTypes.STRING,
